@@ -26,7 +26,7 @@ environments {
 //        }
 		dataSource {
 			pooled = true
-			dbCreate = "update"
+			dbCreate = "create-drop"
 			url = "jdbc:mysql://localhost:3306/techset"
 			driverClassName = "com.mysql.jdbc.Driver"
 			dialect = org.hibernate.dialect.MySQL5InnoDBDialect
