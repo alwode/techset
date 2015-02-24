@@ -16,23 +16,38 @@ class BootStrap {
 		  									   talDomainDescription: "Application Integration and Middleware"))
 	  .save()
 */
+
 		def String talModelXMLString =	new File("c:\\temp\\tal.xml").getText('UTF-8')
 		
-		def nodes = new XmlParser().parseText(talModelXMLString)
-		def allNodes = nodes.size()
-/*		assert allRecords == 3
-		def allNodes = records.depthFirst().size()
-		assert allNodes == 10
-		def firstRecord = records.car[0]
-		assert 'car' == firstRecord.name()
-		assert 'Holden' == firstRecord.'@make'
-		assert 'Australia' == firstRecord.country.text()
-		// 2 cars have an 'e' in the make
-		assert 2 == records.car.findAll{ it.'@make'.contains('e') }.size()
-		// makes of cars that have an 's' followed by an 'a' in the country
-		assert ['Holden', 'Peel'] == records.car.findAll{ it.country.text() =~ '.*s.*a.*' }.'@make'
-*/		
+		def map = new XmlParser().parseText(talModelXMLString)
+		
+		def master = new tal.model.TalMaster(talMasterName: "ICT Software",
+			talMasterDescription: "ICT Software" )
+		map.node.node.node.each {
+			def currDomain = it
+			def tal.model.TalDomain talDomain = new tal.model.TalDomain(talDomainName: currDomain.attribute("TEXT"),
+		  									   talDomainDescription: currDomain.attribute("TEXT"))
+			master.addToTalDomains(talDomain)
+			System.out.println(currDomain.attribute("TEXT"))
+			
+			it.node.each {
+				def currGroup = it
+				def tal.model.TalGroup talGroup = new tal.model.TalGroup(talGroupName: currGroup.attribute("TEXT"),
+											   talGroupDescription: currGroup.attribute("TEXT"))
+				talDomain.addToTalGroups(talGroup)
+				System.out.println("    " + currGroup.attribute("TEXT"))
+				it.node.each {
+					def currArea = it
+					def tal.model.TalArea talArea = new tal.model.TalArea(talAreaName: currArea.attribute("TEXT"), 
+			  								   talAreaDescription: currArea.attribute("TEXT"))
+					talGroup.addToTalAreas(talArea)
+					System.out.println("        " + currArea.attribute("TEXT"))
+					
+				}
+			}
 		}
+		master.save()
+	}
     def destroy = {
     }
 }
