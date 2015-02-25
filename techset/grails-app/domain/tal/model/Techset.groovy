@@ -6,7 +6,7 @@ class Techset {
 	Date validFrom
 	Date validUntil
 	
-	static hasMany = [techsetProducts: TechSetProduct]
+	static hasMany = [techsetProducts: TechsetProduct]
 	
     static constraints = {
     }

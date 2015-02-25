@@ -1,10 +1,10 @@
 package tal.model
 
-class TechSetProduct {
+class TechsetProduct {
 
 	Product product
 	
-	 
+	static belongsTo = [techset: Techset] 
     static constraints = {
     }
 }
