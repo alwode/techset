@@ -10,4 +10,7 @@ class Techset {
 	
     static constraints = {
     }
+	String toString() {
+		return techsetName
+	}
 }

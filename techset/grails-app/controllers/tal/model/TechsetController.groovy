@@ -2,5 +2,5 @@ package tal.model
 
 class TechsetController {
 
-    def index() { }
+    static scaffold = true
 }

@@ -4,8 +4,13 @@ class Product {
 
 	String product
 	String vendor
-	String version
+	String productVersion
 	
     static constraints = {
     }
+	
+	String toString() {
+		return product + " " + productVersion
+	}
+
 }
